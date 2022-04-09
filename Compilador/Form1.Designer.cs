@@ -142,6 +142,7 @@ namespace Compilador
             this.btnEjecutar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnEjecutar.TabIndex = 10;
             this.btnEjecutar.TabStop = false;
+            this.btnEjecutar.Click += new System.EventHandler(this.btnEjecutar_Click);
             this.btnEjecutar.MouseLeave += new System.EventHandler(this.btnEjecutar_MouseLeave);
             this.btnEjecutar.MouseHover += new System.EventHandler(this.btnEjecutar_MouseHover);
             // 
@@ -350,7 +351,7 @@ namespace Compilador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 682);
+            this.ClientSize = new System.Drawing.Size(922, 681);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

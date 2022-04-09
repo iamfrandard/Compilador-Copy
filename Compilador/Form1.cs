@@ -188,10 +188,8 @@ namespace Compilador
                 else
                 {
                     result += "Lexema: ["+ lexema.Texto + "] Error: "+ lexema.MensajeError + "  \r\n";
-                }
-                
+                }  
             }
-
 
             return result;
         }
@@ -253,14 +251,11 @@ namespace Compilador
             //Construir la tabla de simbolos
             _analizadorSintactico.ConstruirTablaSimbolos(lexemas);
             
-
             int pos = 0;
-
             
             List<Bloque> bloques = _analizadorSintactico.RealizarAnalisisSintax(lexemas,ref pos, lexemas.Count);
             bloques.ForEach(y => y.HacersePadre());
             List<Bloque> bloquesFlat = bloques.SelectMany(y => y.BloquesPlanos()).ToList();
-
 
             LimpiarTablaSimbolos();
             ImprimirTablaSimbolos(_analizadorSintactico.TablaSimbolos.RegistrosTabla);
@@ -278,8 +273,6 @@ namespace Compilador
                 LlenarArbol(ref root, bloquesFlat);
                 arbolSintax.Nodes.Add(root);
             }
-
-
         }
 
         private void btnSemantic_Click(object sender, EventArgs e)
@@ -292,11 +285,9 @@ namespace Compilador
 
             int pos = 0;
 
-
             List<Bloque> bloques = _analizadorSintactico.RealizarAnalisisSintax(lexemas, ref pos, lexemas.Count);
             bloques.ForEach(y => y.HacersePadre());
             List<Bloque> bloquesFlat = bloques.SelectMany(y => y.BloquesPlanos()).ToList();
-
 
             List<string> errores = _analizadorSintactico.ExtraerErroresBloques(bloques);
             if (errores.Count > 0)
@@ -327,7 +318,6 @@ namespace Compilador
 
                 LimpiarTablaSimbolos();
                 ImprimirTablaSimbolos(_analizadorSemantico.TablaSimbolos.RegistrosTabla);
-
             }
         }
 
@@ -414,11 +404,9 @@ namespace Compilador
 
             int pos = 0;
 
-
             List<Bloque> bloques = _analizadorSintactico.RealizarAnalisisSintax(lexemas, ref pos, lexemas.Count);
             bloques.ForEach(y => y.HacersePadre());
             List<Bloque> bloquesFlat = bloques.SelectMany(y => y.BloquesPlanos()).ToList();
-
 
             List<string> errores = _analizadorSintactico.ExtraerErroresBloques(bloques);
             if (errores.Count > 0)
@@ -440,13 +428,11 @@ namespace Compilador
                 {
                     string erroresSemantic = ArmarErroresSintax(_analizadorSemantico.Errores);
                     cuadroResultados.Text = erroresSemantic;
-
                 }
                 else
                 {
                     //Aca realizamos el proceso
                     string path = Path.Combine(GetPathGcc(), "temp.c");
-
 
                     using (StreamWriter bw = new StreamWriter(File.Create(path)))
                     {
@@ -463,17 +449,13 @@ namespace Compilador
                     Thread.Sleep(2000);
                     LeerAsm(pathAsm);
 
-
                     //Borramos los dos archivos
                     File.Delete(path);
                     File.Delete(pathAsm);
                 }
 
-                
-
                 LimpiarTablaSimbolos();
                 ImprimirTablaSimbolos(_analizadorSemantico.TablaSimbolos.RegistrosTabla);
-
             }
         }
 
@@ -487,11 +469,9 @@ namespace Compilador
 
             int pos = 0;
 
-
             List<Bloque> bloques = _analizadorSintactico.RealizarAnalisisSintax(lexemas, ref pos, lexemas.Count);
             bloques.ForEach(y => y.HacersePadre());
             List<Bloque> bloquesFlat = bloques.SelectMany(y => y.BloquesPlanos()).ToList();
-
 
             List<string> errores = _analizadorSintactico.ExtraerErroresBloques(bloques);
             if (errores.Count > 0)
@@ -514,11 +494,9 @@ namespace Compilador
                 {
                     string erroresSemantic = ArmarErroresSintax(_analizadorSemantico.Errores);
                     cuadroResultados.Text = erroresSemantic;
-
                 }
                 else
                 {
-
                     //Hacemos la generacion de code
                     pos = 0;
                     List<Bloque> bloquesFin = _analizadorSintactico.RealizarAnalisisSintax(lexemas, ref pos, lexemas.Count);
@@ -531,7 +509,6 @@ namespace Compilador
 
                 LimpiarTablaSimbolos();
                 ImprimirTablaSimbolos(_analizadorSemantico.TablaSimbolos.RegistrosTabla);
-
             }
         }
 
@@ -551,7 +528,6 @@ namespace Compilador
         private void GenerarAsm()
         {
             string pathGcc = GetPathGcc(); // Example of location
-
             var process = new System.Diagnostics.Process();
             var startInfo = new System.Diagnostics.ProcessStartInfo
             {
@@ -561,7 +537,6 @@ namespace Compilador
                 RedirectStandardInput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
-
             };
 
             process.StartInfo = startInfo;
@@ -593,6 +568,11 @@ namespace Compilador
             string texto = "int main() {" + cuadroTexto.Text + " return 0; }";
             return texto;
             
+        }
+
+        private void btnEjecutar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
