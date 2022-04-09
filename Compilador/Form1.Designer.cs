@@ -112,6 +112,7 @@ namespace Compilador
             this.cuadroTexto.Name = "cuadroTexto";
             this.cuadroTexto.Size = new System.Drawing.Size(320, 358);
             this.cuadroTexto.TabIndex = 1;
+            this.cuadroTexto.TextChanged += new System.EventHandler(this.cuadroTexto_TextChanged);
             // 
             // arbolSintax
             // 
@@ -119,6 +120,7 @@ namespace Compilador
             this.arbolSintax.Name = "arbolSintax";
             this.arbolSintax.Size = new System.Drawing.Size(161, 358);
             this.arbolSintax.TabIndex = 1;
+            this.arbolSintax.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.arbolSintax_AfterSelect);
             // 
             // cuadroResultados
             // 
@@ -130,6 +132,7 @@ namespace Compilador
             this.cuadroResultados.Name = "cuadroResultados";
             this.cuadroResultados.Size = new System.Drawing.Size(312, 358);
             this.cuadroResultados.TabIndex = 0;
+            this.cuadroResultados.TextChanged += new System.EventHandler(this.cuadroResultados_TextChanged);
             // 
             // btnEjecutar
             // 
@@ -322,6 +325,7 @@ namespace Compilador
             this.tablaSimbolos.ReadOnly = true;
             this.tablaSimbolos.Size = new System.Drawing.Size(454, 172);
             this.tablaSimbolos.TabIndex = 0;
+            this.tablaSimbolos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablaSimbolos_CellContentClick);
             // 
             // Codigo
             // 

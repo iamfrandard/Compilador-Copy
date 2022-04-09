@@ -33,7 +33,6 @@ namespace Procesos
             {
                 return RegistrosTabla.Max(x => x.Codigo) + 1;
             }
-            
         }
 
         public void InsertarRegistro(RegistroTabla registro)
@@ -47,8 +46,6 @@ namespace Procesos
                 registro.Codigo = SiguienteCorrelativo();
                 RegistrosTabla.Add(registro);
             }
-
-            
         }
 
         public void ActualizarValorRegistro(string nombre, string valor)
@@ -85,7 +82,6 @@ namespace Procesos
                 //}
 
                 InsertarRegistro(new RegistroTabla { Nombre = lexema.Texto , TipoVariable = tipoVariable});
-
             }
         }
 
@@ -102,8 +98,7 @@ namespace Procesos
                 case "double":
                     return Enums.TipoVariable.Double;
                 case "void":
-                    return Enums.TipoVariable.Void;
-                    
+                    return Enums.TipoVariable.Void;    
             }
 
             return null;

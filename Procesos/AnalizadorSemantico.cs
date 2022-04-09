@@ -41,7 +41,6 @@ namespace Procesos
                     {
                         ProcesarReAsignacion(lexema, indiceActual, lexemas);
                     }
-                    
                 }
             }
 
@@ -125,8 +124,6 @@ namespace Procesos
                     TablaSimbolos.ActualizarValorRegistro(registroActual.Nombre, resultAsignacion);
                 }
             }
-
-
         }
 
         public string ProcesarAsignacion(int indiceInicioAsignacion, List<Lexema> lexemas, Enums.TipoVariable tipoVariable)
@@ -142,9 +139,7 @@ namespace Procesos
                     if (VariableDeclarada(lexemas[indiceInicioAsignacion]))
                     {
                         //Como la variable existe, procedo a ver si los tipos son compatibles
-                        RegistroTabla registroTabla =
-                            TablaSimbolos.RegistrosTabla.First(
-                                x => x.Nombre == lexemas[indiceInicioAsignacion].Texto);
+                        RegistroTabla registroTabla = TablaSimbolos.RegistrosTabla.First(x => x.Nombre == lexemas[indiceInicioAsignacion].Texto);
 
                         if (registroTabla.TipoVariable == tipoVariable)
                         {
@@ -167,44 +162,31 @@ namespace Procesos
                 else
                 {
                     //Procedo a verificar que ese valor sea compatible al tipo
-                    if (TipoElementoToTipoVar(lexemas[indiceInicioAsignacion].TipoElemento,
-                            lexemas[indiceInicioAsignacion].Texto) == tipoVariable) //Esta asignando el tipo correcto
+                    if (TipoElementoToTipoVar(lexemas[indiceInicioAsignacion].TipoElemento, lexemas[indiceInicioAsignacion].Texto) == tipoVariable) //Esta asignando el tipo correcto
                     {
                         result = lexemas[indiceInicioAsignacion].Texto;
                     }
                     else
                     {
                         result = "Error";
-                        Errores.Add("El valor que se intento asignar a \"" + lexemas[indiceInicioAsignacion - 2].Texto +
-                                    "\" no es compatible con el tipo " + tipoVariable);
+                        Errores.Add("El valor que se intento asignar a \"" + lexemas[indiceInicioAsignacion - 2].Texto + "\" no es compatible con el tipo " + tipoVariable);
                     }
                 }
-
-
-
             }
             else
             {
                 //Asignacion compleja
-
-
-                string resTentativo = AsignacionCompleja(indiceInicioAsignacion, IndicePuntoComa(lexemas, indiceInicioAsignacion) - 1,
-                    lexemas, tipoVariable);
+                string resTentativo = AsignacionCompleja(indiceInicioAsignacion, IndicePuntoComa(lexemas, indiceInicioAsignacion) - 1, lexemas, tipoVariable);
                 if (tipoVariable == Enums.TipoVariable.Int && resTentativo.Contains("."))
                 {
                     result = "Error";
-                    Errores.Add("El valor que se intenta asignar a \"" + lexemas[indiceInicioAsignacion - 2].Texto +
-                                "\"" + " fue: " + resTentativo + " y" + " no es compatible con el tipo " + tipoVariable);
+                    Errores.Add("El valor que se intenta asignar a \"" + lexemas[indiceInicioAsignacion - 2].Texto + "\"" + " fue: " + resTentativo + " y" + " no es compatible con el tipo " + tipoVariable);
                 }
                 else
                 {
                     result = resTentativo;
                 }
-
             }
-
-
-
             return result;
         }
 
@@ -257,9 +239,7 @@ namespace Procesos
                 for (int i = 0; i < copiaLexemas.Count; i++)
                 {
                     Lexema lexemaActual = copiaLexemas[i];
-                    if (lexemaActual.TipoElemento == Enums.TipoElemento.Numero ||
-                        lexemaActual.TipoElemento == Enums.TipoElemento.Cadena ||
-                        lexemaActual.TipoElemento == Enums.TipoElemento.Caracter)
+                    if (lexemaActual.TipoElemento == Enums.TipoElemento.Numero || lexemaActual.TipoElemento == Enums.TipoElemento.Cadena || lexemaActual.TipoElemento == Enums.TipoElemento.Caracter)
                     {
                         if (ladoIzq == null)
                         {
@@ -275,14 +255,12 @@ namespace Procesos
                     {
                         op = lexemaActual;
 
-                        if (copiaLexemas.ElementAtOrDefault(i + 2) != null &&
-                            (copiaLexemas[i + 2].Texto == "*" || copiaLexemas[i + 2].Texto == "/"))
+                        if (copiaLexemas.ElementAtOrDefault(i + 2) != null && (copiaLexemas[i + 2].Texto == "*" || copiaLexemas[i + 2].Texto == "/"))
                         {
                             //Cambio los elementos
                             copiaLexemas[i + 1].Texto = AsignacionCompleja(i + 1, i + 3, copiaLexemas, tipoVariable);
                             copiaLexemas[i + 3].Texto = "0";
                             copiaLexemas[i + 2].Texto = "+";
-
                         }
                     }
 
@@ -299,12 +277,8 @@ namespace Procesos
                         ladoDer = null;
                         op = null;
                     }
-
                 }
-
             }
-
-
             return result;
         }
 
@@ -325,14 +299,11 @@ namespace Procesos
             Enums.TipoVariable tipoIzq = TipoElementoToTipoVar(ladoIzq.TipoElemento, ladoIzq.Texto);
             Enums.TipoVariable tipoDer = TipoElementoToTipoVar(ladoDer.TipoElemento, ladoDer.Texto);
 
-
             if (tipoVariable == Enums.TipoVariable.Float || tipoVariable == Enums.TipoVariable.Double)
             {
                 tipoIzq = tipoVariable;
                 tipoDer = tipoVariable;
-
             }
-
             if (tipoIzq == tipoDer)
             {
                 if (tipoIzq == Enums.TipoVariable.Int) //Estamos ante un entero
@@ -370,16 +341,9 @@ namespace Procesos
                                 result = "Error";
                                 Errores.Add("La division resulta en un resultado decimal, no asiganble al tipo \"int\"");
                             }
-
-
                         }
-
                     }
-
                 }
-
-
-
                 else if (tipoIzq == Enums.TipoVariable.Float || tipoIzq == Enums.TipoVariable.Double)
                 {
                     decimal decimalIzq = decimal.Parse(ladoIzq.Texto);
@@ -408,13 +372,8 @@ namespace Procesos
                         {
                             result = (decimalIzq / decimalDer).ToString();
                         }
-
                     }
-
                 }
-
-
-
             }
             else
             {
@@ -423,8 +382,6 @@ namespace Procesos
             }
 
             return result;
-
-
         }
 
         public int IndicePuntoComa(List<Lexema> lexemas, int posCursor)
@@ -449,19 +406,13 @@ namespace Procesos
                     salir = true;
                     posCursor = -1;
                 }
-
-
             } while (!salir);
-
-
 
             return posCursor;
         }
 
         public bool PuntoComaCorrecto(List<Lexema> lexemas, int posCursor, int indicePuntoComa)
         {
-
-
             int asignaciones = 0;
             int declarartipoVar = 0;
             int llaves = 0;
@@ -471,23 +422,19 @@ namespace Procesos
                 {
                     asignaciones++;
                 }
-
                 if (lexemas[i].TipoElemento == Enums.TipoElemento.TipoVariable)
                 {
                     declarartipoVar++;
                 }
-
                 if (lexemas[i].TipoElemento == Enums.TipoElemento.Llave)
                 {
                     llaves++;
                 }
             }
-
             if (asignaciones > 1 || declarartipoVar > 1 || llaves > 0)
             {
                 return false;
             }
-
             return true;
         }
 
@@ -503,7 +450,6 @@ namespace Procesos
                     if (lexemas[posCursor].Texto == simboloApertura)
                     {
                         abiertos++;
-
                     }
                     else if (lexemas[posCursor].Texto == simboloCierre)
                     {
@@ -517,7 +463,6 @@ namespace Procesos
                             abiertos--;
                         }
                     }
-
                     posCursor++;
                 }
                 else
@@ -525,9 +470,6 @@ namespace Procesos
                     posCursor = -1;
                     salir = true;
                 }
-
-
-
             } while (!salir);
 
             return posCursor;
@@ -581,16 +523,13 @@ namespace Procesos
                     break;
                 case Enums.TipoElemento.Coma:
                     break;
-
             }
-
             return tipoVariable;
         }
 
         public Enums.TipoElemento TipoVarToTipoElemento(Enums.TipoVariable tipoVariable)
         {
             Enums.TipoElemento tipoElemento = Enums.TipoElemento.Error;
-
 
             switch (tipoVariable)
             {
@@ -629,7 +568,6 @@ namespace Procesos
                     tipoElemento = Enums.TipoElemento.Cadena;
                     break;
             }
-
             return tipoElemento;
         }
 
@@ -652,7 +590,6 @@ namespace Procesos
                     return Enums.TipoVariable.Double;
                 case "void":
                     return Enums.TipoVariable.Void;
-
             }
 
             return Enums.TipoVariable.Void;
@@ -688,18 +625,15 @@ namespace Procesos
 
             if (lexemaRetorno.TipoElemento == Enums.TipoElemento.Numero)
             {
-
                 Enums.TipoVariable tipoRetorno = TextoNumeroToTipo(lexemaRetorno.Texto);
                 if (tipoRetornoEsperado == Enums.TipoVariable.Float || tipoRetornoEsperado == Enums.TipoVariable.Double)
                 {
                     tipoRetorno = TextoNumeroToTipo(lexemaRetorno.Texto, tipoRetornoEsperado);
                 }
-
                 if (tipoRetornoEsperado != tipoRetorno)
                 {
                     Errores.Add("El bloque:" + string.Join(" ", bloque.Lexemas.Select(y => y.Texto)) + " no tiene un valor de retorno valido. Debe devolver " + tipoRetornoEsperado);
                 }
-
             }
             else
             {
@@ -710,10 +644,6 @@ namespace Procesos
                     Errores.Add("El bloque:" + string.Join(" ", bloque.Lexemas.Select(y => y.Texto)) + " no tiene un valor de retorno valido. Debe devolver " + tipoRetornoEsperado);
                 }
             }
-
-
-            
-
         }
 
         public Enums.TipoVariable TextoNumeroToTipo(string numeroTexto, Enums.TipoVariable helper = Enums.TipoVariable.Float)

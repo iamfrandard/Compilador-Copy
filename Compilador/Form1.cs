@@ -53,8 +53,6 @@ namespace Compilador
             saveFile.Title = "Guarcar archivo";
             saveFile.Filter = "Archivo C|*.c";
             saveFile.InitialDirectory = @"C:\";
-            
-
         }
 
         #region Hover Events
@@ -171,14 +169,12 @@ namespace Compilador
             List<Lexema> lexemas = _analizadorLexico.ExtraerLexemas(codigoSinSaltos);
             string analisisLex = ArmarResultadoAnalisisLexico(lexemas);
             cuadroResultados.Text = analisisLex;
-
         }
 
         private string ArmarResultadoAnalisisLexico(List<Lexema> lexemas)
         {
             string result = "";
             
-
             foreach (Lexema lexema in lexemas)
             {
                 if (lexema.TipoElemento != Enums.TipoElemento.Error)
@@ -389,10 +385,7 @@ namespace Compilador
             tablaSimbolos.Rows.Clear();
         }
 
-        private void btnCompilar_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void btnCompilar_Click(object sender, EventArgs e){}
 
         private void btnMachine_Click(object sender, EventArgs e)
         {
@@ -487,7 +480,6 @@ namespace Compilador
                 arbolSintax.Nodes.Add(root);
 
                 //Desde aca se hace el analisis semantico
-                
                 _analizadorSemantico.ProcesarLexemas(lexemas, bloques);
 
                 if (_analizadorSemantico.Errores.Count > 0)
@@ -567,12 +559,16 @@ namespace Compilador
         {
             string texto = "int main() {" + cuadroTexto.Text + " return 0; }";
             return texto;
-            
         }
 
-        private void btnEjecutar_Click(object sender, EventArgs e)
-        {
+        private void btnEjecutar_Click(object sender, EventArgs e){}
 
-        }
+        private void cuadroTexto_TextChanged(object sender, EventArgs e){}
+
+        private void cuadroResultados_TextChanged(object sender, EventArgs e){}
+
+        private void arbolSintax_AfterSelect(object sender, TreeViewEventArgs e){}
+
+        private void tablaSimbolos_CellContentClick(object sender, DataGridViewCellEventArgs e){}
     }
 }

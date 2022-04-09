@@ -44,8 +44,6 @@ namespace Procesos
 
             while (m.Success)
             {
-                
-
                 if (m.Groups[Enums.TipoElemento.OperadorAritmetico.ToString()].Success) //Si es un operador, procedemos a hacer cualquier otra cosa
                 {
                     lexemas.Add(new Lexema() { Texto = m.Value, TipoElemento = Enums.TipoElemento.OperadorAritmetico});
@@ -61,7 +59,6 @@ namespace Procesos
                 else if (m.Groups[Enums.TipoElemento.Variable.ToString()].Success)
                 {
                     lexemas.Add(new Lexema() { Texto = m.Value, TipoElemento = Enums.TipoElemento.Variable });
-
                 }
                 else if (m.Groups[Enums.TipoElemento.Cadena.ToString()].Success)
                 {
@@ -81,7 +78,6 @@ namespace Procesos
                     {
                         lexemas.Add(new Lexema() { Texto = m.Value, TipoElemento = Enums.TipoElemento.Numero });
                     }
-                    
                 }
                 else if (m.Groups[Enums.TipoElemento.OperadorAsignacion.ToString()].Success)
                 {
@@ -132,16 +128,10 @@ namespace Procesos
                     if (!string.IsNullOrEmpty(m.Value) && !string.IsNullOrWhiteSpace(m.Value))
                     {
                         lexemas.Add(new Lexema() { Texto = m.Value, TipoElemento = Enums.TipoElemento.Error, Error = true, MensajeError = "Lexema no reconocido" });
-                    }
-                    
+                    } 
                 }
-
-
-
                 m = m.NextMatch();
             }
-
-
             return lexemas;
         }
 
@@ -167,10 +157,6 @@ namespace Procesos
                     return me.Value;
                 },
                 RegexOptions.Singleline);
-
-
-
-
             return newCode;
         }
 
@@ -183,7 +169,5 @@ namespace Procesos
         {
             return codigo.Replace(Environment.NewLine, null);
         }
-
-       
     }
 }

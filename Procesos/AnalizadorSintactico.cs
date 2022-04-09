@@ -23,9 +23,6 @@ namespace Procesos
 
         #region Reglas
 
-
-
-
         public string AplicarReglasTipoVar(int indice, List<Lexema> lexemas)
         {
             string mensajeError = "";
@@ -39,8 +36,7 @@ namespace Procesos
             {
 
                 Lexema lexemaSiguiente = lexemas[indice + 1];
-                if (lexemaSiguiente.TipoElemento != Enums.TipoElemento.Variable &&
-                    lexemaSiguiente.TipoElemento != Enums.TipoElemento.Corchete)
+                if (lexemaSiguiente.TipoElemento != Enums.TipoElemento.Variable && lexemaSiguiente.TipoElemento != Enums.TipoElemento.Corchete)
                 {
                     mensajeError = "Error de sintaxis, se esperaba un identificador, pero se encontró " + lexemaSiguiente.Texto + ". Elemento: " + lexema.Texto;
                 }
@@ -1214,7 +1210,5 @@ namespace Procesos
             }
             return errores;
         }
-
-
     }
 }
